@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Humbaba — Guardian of the Cedar Forest</title>
+
+<style>
+:root{
+  --forest-green:#2a3b2f;
+  --cedar-brown:#5c3a21;
+  --gold:#c9a24d;
+  --sand:#e6dcc6;
+  --shadow:#0c0b08;
+}
+
+/* Reset */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family: Georgia, "Times New Roman", serif;
+  background: radial-gradient(circle at top,#1a1a15,#0c0b08);
+  color: var(--sand);
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+/* Background texture */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:5;
+}
+
+/* Shadowy cracks for depth */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(110deg,transparent 47%,rgba(255,255,255,0.03) 48%,transparent 50%),
+    linear-gradient(70deg,transparent 60%,rgba(0,0,0,0.25) 61%,transparent 63%);
+  pointer-events:none;
+  z-index:6;
+}
+
+/* Header */
+header{
+  text-align:center;
+  padding:4rem 1.5rem 3rem;
+}
+
+h1{
+  font-size:clamp(2.8rem,7vw,3.8rem);
+  color: var(--gold);
+  text-transform:uppercase;
+  letter-spacing:0.2em;
+  animation:rise 2s ease forwards, crown 8s infinite;
+}
+
+header p{
+  margin-top:1rem;
+  font-style:italic;
+  color:#cbbfa8;
+}
+
+.divider{
+  width:180px;
+  height:2px;
+  margin:2.5rem auto;
+  background: linear-gradient(to right,transparent,var(--gold),transparent);
+}
+
+/* Forest centerpiece */
+.forest-center{
+  position:relative;
+  width:200px;
+  height:200px;
+  margin:0 auto 3rem;
+  pointer-events:none;
+}
+
+.vine{
+  position:absolute;
+  bottom:0;
+  width:4px;
+  height:120px;
+  background:var(--forest-green);
+  border-radius:2px;
+  transform-origin: bottom center;
+  animation:vineSwing 4s ease-in-out infinite;
+}
+
+.vine:nth-child(1){ left:20px; animation-delay:0s; }
+.vine:nth-child(2){ left:60px; animation-delay:0.5s; }
+.vine:nth-child(3){ left:100px; animation-delay:1s; }
+.vine:nth-child(4){ left:140px; animation-delay:1.5s; }
+.vine:nth-child(5){ left:180px; animation-delay:2s; }
+
+.leaf{
+  position:absolute;
+  width:14px;
+  height:7px;
+  background:var(--forest-green);
+  border-radius:50% 50% 50% 50%;
+  animation:leafFloat 3s ease-in-out infinite;
+}
+
+/* Randomly position leaves on vines */
+.vine .leaf:nth-child(1){ top:20px; left:-5px; animation-delay:0s; }
+.vine .leaf:nth-child(2){ top:50px; left:-5px; animation-delay:1s; }
+.vine .leaf:nth-child(3){ top:80px; left:-5px; animation-delay:2s; }
+
+/* Main content */
+main{
+  max-width:860px;
+  margin:auto;
+  padding:0 1.5rem 4rem;
+}
+
+section{
+  margin-bottom:4rem;
+  opacity:0;
+  transform:translateY(50px);
+  transition: all 1.2s ease;
+  position:relative;
+}
+
+section.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+section h2{
+  font-size:1.7rem;
+  margin-bottom:1.2rem;
+  color:var(--gold);
+  letter-spacing:0.06em;
+}
+
+section p{
+  line-height:1.85;
+  font-size:1.05rem;
+  margin-bottom:1.1rem;
+}
+
+/* Inscription block */
+.inscription{
+  background:rgba(0,0,0,0.35);
+  border-left:4px solid var(--gold);
+  padding:1.3rem 1.5rem;
+  font-style:italic;
+  color:#d6ccb5;
+  margin:2.5rem 0;
+}
+
+/* Fact plaque */
+.fact{
+  background:rgba(201,162,77,0.08);
+  border:1px solid rgba(201,162,77,0.4);
+  padding:1rem 1.2rem;
+  margin-top:1rem;
+  font-size:0.95rem;
+  color:#e0d5bd;
+}
+
+/* Footer */
+footer{
+  text-align:center;
+  font-size:0.85rem;
+  color:#b6a98e;
+  padding-bottom:2rem;
+}
+
+/* Animations */
+@keyframes rise{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes crown{
+  0%,100%{letter-spacing:0.2em}
+  50%{letter-spacing:0.28em}
+}
+
+@keyframes vineSwing{
+  0%{transform:rotate(-5deg);}
+  50%{transform:rotate(5deg);}
+  100%{transform:rotate(-5deg);}
+}
+
+@keyframes leafFloat{
+  0%{transform:translateY(0) rotate(0deg);}
+  50%{transform:translateY(-8px) rotate(10deg);}
+  100%{transform:translateY(0) rotate(0deg);}
+}
+
+/* Animated forest background */
+.cedar-bg{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background: repeating-linear-gradient(to top, rgba(42,59,47,0.05) 0 2px, transparent 2px 4px);
+  z-index:1;
+  pointer-events:none;
+  animation:forestWind 20s linear infinite;
+}
+
+@keyframes forestWind{
+  0%{background-position-x:0;}
+  100%{background-position-x:200px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="cedar-bg"></div>
+
+<header>
+  <h1>Humbaba</h1>
+  <p>Guardian of the Cedar Forest • Epic of Gilgamesh</p>
+  <div class="divider"></div>
+</header>
+
+<!-- Forest centerpiece with animated vines -->
+<div class="forest-center">
+  <div class="vine"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
+  <div class="vine"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
+  <div class="vine"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
+  <div class="vine"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
+  <div class="vine"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
+</div>
+
+<main>
+
+<section>
+<h2>Fearsome Protector</h2>
+<p>
+Humbaba is a powerful and terrifying figure in the Epic of Gilgamesh, appointed by the god Enlil to guard the sacred Cedar Forest. His presence alone strikes fear into anyone who approaches.
+</p>
+<p>
+He is described as having a roaring voice and an aura that reflects divine wrath, making him almost invincible to ordinary humans.
+</p>
+<div class="fact">Fun Fact: Humbaba's roar was said to shake the very trees of the Cedar Forest.</div>
+</section>
+
+<section>
+<h2>Obstacle for Heroes</h2>
+<p>
+When Gilgamesh and Enkidu venture into the Cedar Forest seeking fame, Humbaba stands as their greatest challenge. Initially, he tries to reason with them and even pleads for mercy.
+</p>
+<p>
+Encouraged by Enkidu, Gilgamesh chooses to kill Humbaba, an act that brings them glory but also anger from the gods.
+</p>
+</section>
+
+<section>
+<h2>Symbol of Nature's Protection</h2>
+<p>
+Humbaba embodies the conflict between human ambition and divine order. As guardian, he symbolizes the natural boundaries set by the gods that humans are not meant to cross.
+</p>
+<div class="inscription">
+Disrespecting sacred duties invites divine punishment, reminding humans of the cost of pride and desire for fame.
+</div>
+</section>
+
+<section>
+<h2>Lessons from Humbaba</h2>
+<p>
+The epic teaches that courage without wisdom can lead to destruction, and that ambition must be tempered with respect for divine and natural laws.
+</p>
+<p>
+Through Humbaba, the story conveys that humanity’s reach must honor the sacred balance of the world.
+</p>
+<div class="fact">Insight: Humbaba's death marks a turning point in the epic, showing the consequences of overstepping limits.</div>
+</section>
+
+</main>
+
+<footer>
+Epic of Gilgamesh • Ancient Mesopotamia
+</footer>
+
+<script>
+const sections=document.querySelectorAll("section");
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+    }
+  });
+},{threshold:0.15});
+sections.forEach(s=>observer.observe(s));
+</script>
+
+</body>
+</html>
